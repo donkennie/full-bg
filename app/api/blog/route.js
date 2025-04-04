@@ -9,8 +9,7 @@ const LoadDb = async() => {
 
 LoadDb();
 
-export async function Get(request){
-    console.log("Here i am")
+export async function GET(request){
     return NextResponse.json({msg: "API Working"})
 }
 
@@ -20,9 +19,13 @@ export async function POST(request){
     const timestamp = Date.now();
 
     const image = formData.get('image');
+    if (!image) {
+        throw new Error('No image uploaded');
+    }
+
     const imageByteData = await image.arrayBuffer();
     const buffer = Buffer.from(imageByteData);
-    const path = `.public/${timestamp}_${image.name}`;
+    const path = `./public/${timestamp}_${image.name}`;
     await writeFile(path, buffer);
     const imgUrl = `/${timestamp}_${image.name}`
 
@@ -37,7 +40,7 @@ export async function POST(request){
 
     await BlogModel.create(blogData);
 
-    return NextResponse,json(
+    return NextResponse.json(
         {success: true, msg: "Blog Added!"}
     )
 }
