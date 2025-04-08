@@ -2,6 +2,7 @@
 import { assets } from '@/Assets/assets'
 import Image from 'next/image'
 import React, { useState } from 'react'
+import axios from 'axios'
 import { toast } from 'react-toastify'
 
 const page = () => {
